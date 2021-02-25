@@ -2,9 +2,19 @@ package Get;
 
 import BaseMethod.BaseTest;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.gb.backend.dto.GetAccountResponse;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,18 +25,32 @@ import java.util.Map;
 import java.util.Properties;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.requestSpecification;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
+
+@Slf4j
 public class GetAccountTest extends BaseTest {
+
+
+
     @Test
     public void getAccountInfoPositiveTest() {
-        given()
-                .headers("Authorization", BaseTest.token)
+        GetAccountResponse response = given()
                 .when()
                 .get("/account/{id}", BaseTest.username)
                 .prettyPeek()
                 .then()
-                .statusCode(200);
+                .extract()
+                .body()
+                .as(GetAccountResponse.class);
+        System.out.println(response.getStatus().toString());
+        assertThat(response.getStatus(), equalTo(200));
+        assertThat(response.getData().getUrl(),equalTo(username));
+
+
     }
 
     @Test
