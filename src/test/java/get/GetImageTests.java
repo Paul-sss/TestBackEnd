@@ -77,9 +77,4 @@ public class GetImageTests extends BaseTest {
                     .then()
                     .spec(respSpec);
     }
-
-    private static File getImgFromRsc() {
-        ClassLoader classLoader = GetImageTests.class.getClassLoader();
-        return new File(Objects.requireNonNull(classLoader.getResource("pineapple.jpg")).getFile());
-    }
 }
