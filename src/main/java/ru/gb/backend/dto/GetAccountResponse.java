@@ -17,14 +17,8 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
-public class GetAccountResponse {
+public class GetAccountResponse extends CommonResponse<GetAccountResponse.AccountData>{
 
-    @JsonProperty("data")
-    public AccountData data;
-    @JsonProperty("success")
-    public Boolean success;
-    @JsonProperty("status")
-    public Integer status;
 
     @Data
     public static class AccountData {

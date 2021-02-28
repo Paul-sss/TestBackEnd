@@ -9,16 +9,11 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
-public class PostImageResponse {
-    @JsonProperty("data")
-    private ImageData data;
-    @JsonProperty("success")
-    private Boolean success;
-    @JsonProperty("status")
-    private Integer status;
+public class PostImageResponse extends CommonResponse<PostImageResponse.ImageData>{
+
 
     @Data
-    public class ImageData {
+    public static class ImageData {
         @JsonProperty("id")
         private String id;
         @JsonProperty("title")
